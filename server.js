@@ -11,7 +11,7 @@ var games = {}
 
 io.on('connect', socket => {
   console.log("A user has connected")
-  
+
   socket.on('joinRoom', ({gameId}) => { 
     console.log("A user has joined the room")
     socket.join(gameId);
@@ -37,6 +37,13 @@ io.on('connect', socket => {
     console.log("Message recieved")
     socket.broadcast.emit('opponentSentMsg', message)
   })
+
+  socket.on('resetBoard', ({gameId, winner}) => {
+    console.log("Game over")
+    games[gameId] = "start"
+    io.sockets.in(gameId).emit('gameOver', winner)
+  })
+
 })
  
 http.listen(PORT, () => {
