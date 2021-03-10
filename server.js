@@ -23,12 +23,11 @@ io.on('connect', socket => {
   
   socket.on('movePiece', ({ gameId, sourceSquare, targetSquare }) => {
     console.log("Player moved")
-    io.sockets.in(gameId).emit('opponentMoved', {sourceSquare: sourceSquare, targetSquare:targetSquare })
+    socket.broadcast.emit('opponentMoved', {sourceSquare: sourceSquare, targetSquare:targetSquare })
   })
 
   socket.on('sendMessage', ({ gameId, message} ) => {
     console.log("Message recieved")
-    // io.sockets.in(gameId).emit('opponentSentMsg', message)
     socket.broadcast.emit('opponentSentMsg', message)
   })
 })
