@@ -5,7 +5,7 @@ const io = require('socket.io')(http, {
   cors: { origin: "*" }
 })
 
-const PORT = 3005
+const PORT = process.env.PORT || 3005
 
 io.on('connect', socket => {
   console.log("A user has connected")
