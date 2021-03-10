@@ -26,6 +26,11 @@ io.on('connect', socket => {
     io.sockets.in(gameId).emit('opponentMoved', {sourceSquare: sourceSquare, targetSquare:targetSquare })
   })
 
+  socket.on('sendMessage', ({ gameId, message} ) => {
+    console.log("Message recieved")
+    // io.sockets.in(gameId).emit('opponentSentMsg', message)
+    socket.broadcast.emit('opponentSentMsg', message)
+  })
 })
  
 http.listen(PORT, () => {
